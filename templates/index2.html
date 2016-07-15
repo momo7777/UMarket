@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <form method="post" action="/login/">{% csrf_token %}
+        <lable>username:<input name="username" value="mobangu" type="text"></lable>
+        <lable>password:<input name="password" value="1111" type="password"></lable>
+        <input name="login" value="login" type="submit">
+    </form>
+    <form method="post" action="/register/">{% csrf_token %}
+        <lable>username:<input name="username" value="mobangu" type="text"></lable>
+        <lable>password:<input name="password" value="1111" type="password"></lable>
+        <lable>email:<input name="email" value="mhj7@naver.com"></lable>
+        <input name="register" value="register" type="submit">
+
+    </form>
+    <form method="post" action="/logout/">{% csrf_token %}
+        <input name="logout" value="logout" type="submit">
+    </form>
+
+
+    {% if user.is_authenticated %}Hello, {{ user.username }}.{% endif %} </br>
+
+     <img src = "{% static "cutty.jpg" %}">
+</body>
+
+<!-- Modal content-->
+  <html>

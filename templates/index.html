@@ -1,0 +1,133 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
+    <meta charset="UTF-8">
+    <title>중고장터</title>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">중고장터</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li><a onclick="document.getElementById('logout_form').submit()" >Logout</a></li>
+                {% else %}
+                    <li><a data-toggle="modal" data-target="#login">Login</a></li>
+                    <li><a data-toggle="modal" data-target="#register">Register</a></li>
+                {% endif %}
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                {%for name in korean_category_names %}
+                <li><a>{{name}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+
+            <div class="row">
+                {%for thing in stuffs %}
+                    <div class="col-xs-6 col-sm-3" style="height:350px">
+                        <img src="{% static thing.image %}"  width="200" height="200" alt="Generic placeholder thumbnail">
+                        <h4>{{ thing.name }}</h4>
+                        <h4>가격 : $ {{ thing.selling_price }}</h4>
+                        <h5>위치: {{ thing.location }}</h5>
+                        <div class="logo" ><a href="http://www.heykorean.com/"><img style="height:20px; width:auto" src="http://heyimg.heykorean.com/2013/img/new_logo.gif"/></a></div>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</body>
+<form method="post" action="/login/">{% csrf_token %}
+    <div class="modal fade" id="login">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Login</h4>
+                </div>
+                <div class="modal-body">
+                    <lable>username:<input name="username" value="mobangu" type="text"></lable>
+                    <br>
+                    <lable>password:<input name="password" value="1111" type="password"></lable>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input  type="submit" value="login" class="btn btn-primary">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</form>
+<form method="post" action="/register/">{% csrf_token %}
+    <div class="modal fade" id="register">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Register</h4>
+                </div>
+                <div class="modal-body">
+                    <lable>username:<input name="username" value="mobangu" type="text"></lable>
+                    <br>
+                    <lable>password:<input name="password" value="1111" type="password"></lable>
+                    <br>
+                    <lable>email:<input name="email" value="mhj7@naver.com"></lable>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" value ="register" class="btn btn-primary">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</form>
+<form method="post" action="/logout/" id="logout_form">{% csrf_token %}
+    <input name="logout" value="logout" type="submit">
+</form>
+
+</html>
