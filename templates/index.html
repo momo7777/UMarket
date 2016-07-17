@@ -51,7 +51,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 {%for name in korean_category_names %}
-                <li><a>{{name}}</a></li>
+                <li style="border-color:dimgray; color:black;"><a>{{name}}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -63,11 +63,11 @@
             <div class="row">
                 {%for thing in stuffs %}
                     <div class="col-xs-6 col-sm-3" style="height:350px">
-                        <img src="{% static thing.image %}"  width="200" height="200" alt="Generic placeholder thumbnail">
+                        <a href="{{ thing.url_address }}"><img src="{% static thing.image %}"  width="200" height="200" alt="Generic placeholder thumbnail"></a>
                         <h4>{{ thing.name }}</h4>
                         <h4>가격 : $ {{ thing.selling_price }}</h4>
                         <h5>위치: {{ thing.location }}</h5>
-                        <div class="logo" ><a href="http://www.heykorean.com/"><img style="height:20px; width:auto" src="http://heyimg.heykorean.com/2013/img/new_logo.gif"/></a></div>
+                        <div class="logo" ><img style="height:20px; width:auto" src="http://heyimg.heykorean.com/2013/img/new_logo.gif"/></div>
                     </div>
                 {% endfor %}
             </div>

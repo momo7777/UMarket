@@ -3,6 +3,6 @@ from models import Used_stuff
 
 # Register your models here.
 class Used_stuffAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name',  'selling_price', 'description', 'category', 'source')
+    list_display = ('id', 'name',  'selling_price', 'description', 'category', 'source', 'url_address')
 
 admin.site.register(Used_stuff, Used_stuffAdmin)

@@ -14,6 +14,9 @@ class Used_stuff(models.Model):
     location = models.CharField(max_length=225)
     category = models.IntegerField() #0->cloth
     source = models.IntegerField()
+    url_address = models.CharField(max_length=225)
+
+
     def __str__(self):
         return str(self.id)
 

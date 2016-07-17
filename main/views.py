@@ -19,6 +19,13 @@ def main(request):
     return render_to_response('index.html', RequestContext(request, {"stuffs": stuffs, 'english_category_names': english_category_names,
                                                                      'korean_category_names': korean_category_names}))
 
+def filter_main(request, category):  # django model filter
+    print category
+    stuffs = Used_stuff.objects.filter(category=int(category))
+    return render_to_response('index.html', RequestContext(request, {"stuffs": stuffs, 'english_category_names': english_category_names,
+                                                                     'korean_category_names': korean_category_names}))
+
+
 def test(request):
     return render_to_response('index2.html', RequestContext(request, {}))
 
