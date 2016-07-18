@@ -26,4 +26,5 @@ urlpatterns = [
 
     url(r'^login/', login_call),
     url(r'^register/', register_call),
+    url(r'^filtered_userstuff/', filtered_userstuff_data),
 ]

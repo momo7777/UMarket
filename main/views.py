@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from models import Used_stuff
+import json
 
 # Create your views here.
 english_category_names = ['cloth', 'fashion goods', 'beauty', 'birth/child', 'mobile', 'computer', 'camera', 'electronic device',
@@ -24,10 +25,8 @@ def filter_main(request, category):  # django model filter
     stuffs = Used_stuff.objects.filter(category=int(category))
     return render_to_response('index.html', RequestContext(request, {"stuffs": stuffs, 'english_category_names': english_category_names,
                                                                      'korean_category_names': korean_category_names}))
-
-
 def test(request):
-    return render_to_response('index2.html', RequestContext(request, {}))
+    return render_to_response('index3.html', RequestContext(request, {}))
 
 def register_call(request):
     username = request.POST['username']
@@ -66,3 +65,15 @@ def login_call(request):
 def logout_call(request):
     logout(request)
     return redirect('/')
+
+
+
+'''Data Generation As Json Code'''
+
+def filtered_userstuff_data(request):
+    stuffs = Used_stuff.objects.filter(category=1)
+    json_stuff = []
+    for stuff in stuffs:
+        json_stuff.append({'name':stuff.name})
+    return HttpResponse(json.dumps(json_stuff, indent=4, sort_keys=True), content_type="application/json")
+
