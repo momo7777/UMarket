@@ -16,6 +16,30 @@
     <title>중고장터</title>
 
 </head>
+<script>
+    function filter_on_click(category) {
+
+        $.ajax({
+            url:'/filtered_userstuff/',
+            type:'get',
+            data : "category="+category,
+            success:function(data){
+                var str = '';
+                for(var i in data){
+                    str = str + data[i]['name'] + " ";
+                }
+
+                $('.used_product').html(str);
+            }
+
+
+        });
+
+
+    }
+
+
+</script>
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -50,8 +74,8 @@
 
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                {%for name in korean_category_names %}
-                <li style="border-color:dimgray; color:black;"><a>{{name}}</a></li>
+                {% for name in korean_category_names %}
+                    <li style="border-color:dimgray; color:black;"><a id="target" onclick="filter_on_click({{ forloop.counter0 }});">{{name}}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -60,7 +84,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
 
-            <div class="row">
+            <div class="row used_product">
                 {%for thing in stuffs %}
                     <div class="col-xs-6 col-sm-3" style="height:350px">
                         <a href="{{ thing.url_address }}"><img src="{% static thing.image %}"  width="200" height="200" alt="Generic placeholder thumbnail"></a>

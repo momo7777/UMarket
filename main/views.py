@@ -71,7 +71,10 @@ def logout_call(request):
 '''Data Generation As Json Code'''
 
 def filtered_userstuff_data(request):
-    stuffs = Used_stuff.objects.filter(category=1)
+
+    category = request.GET['category']
+
+    stuffs = Used_stuff.objects.filter(category=category)
     json_stuff = []
     for stuff in stuffs:
         json_stuff.append({'name':stuff.name})

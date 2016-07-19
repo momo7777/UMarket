@@ -20,7 +20,7 @@ from main.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', main),
-    url(r'^(?P<category>\d+)/$', filter_main),  # django urls
+    #url(r'^(?P<category>\d+)/$', filter_main),  # django urls,
     url(r'^test/', test),
     url(r'^logout/', logout_call),
 
